@@ -5,8 +5,8 @@
         autocomplete="off" novalidate>
     <div class="form-group">
       <label for="userName">User Name:</label>
-      <em *ngIf="loginForm.controls.userName?.invalid &&
-      (!loginForm.controls.userName?.pristine || mouseoverLogin)">Required</em>
+      <em *ngIf="loginForm.controls['userName'].invalid &&
+      (!loginForm.controls['userName']?.pristine || mouseoverLogin)">Required</em>
       <input (ngModel)="userName" name="userName" required id="userName"
              type="text"
              class="form-control"
@@ -15,8 +15,8 @@
     <div class="form-group">
       <label for="password">Password:</label>
       <em
-        *ngIf="loginForm.controls.password?.invalid &&
-        (!loginForm.controls.password?.pristine || mouseoverLogin)">Required
+        *ngIf="loginForm.controls['password']?.invalid &&
+        (!loginForm.controls['password']?.pristine || mouseoverLogin)">Required
       </em>
       <input (ngModel)="password" name="password" required id="password"
              type="password" class="form-control" placeholder="Password..."/>

@@ -6,9 +6,9 @@
           novalidate>
       <div class="form-group">
         <label for="firstName">First Name:</label>
-        <em *ngIf="!validateFirstName() && profileForm.controls.firstName.errors.required">Required
+        <em *ngIf="!validateFirstName() && profileForm.controls['firstName'].errors.required">Required
         </em>
-        <em *ngIf="!validateFirstName() && profileForm.controls.firstName.errors.pattern">Must
+        <em *ngIf="!validateFirstName() && profileForm.controls['firstName'].errors.pattern">Must
           start with a letter</em>
         <input formControlName="firstName" id="firstName" type="text" class="form-control"
                placeholder="First Name..." [ngClass]="{ 'error': !validateFirstName() }"/>
