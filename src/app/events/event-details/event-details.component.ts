@@ -1,13 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EventService, IEvent, ISession} from '../shared/index';
 import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   templateUrl: './event-details.component.html',
   styles: [`
-    .container { padding-left: 20px; padding-right: 20px; }
-    .event-image { height: 100px; }
-    a {cursor: pointer}
+    .container {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .event-image {
+      height: 100px;
+    }
+
+    a {
+      cursor: pointer
+    }
   `]
 })
 export class EventDetailsComponent implements OnInit {
@@ -16,11 +25,12 @@ export class EventDetailsComponent implements OnInit {
   filterBy: string = 'all';
   sortBy: string = 'votes';
 
-  constructor(private eventService: EventService, private route: ActivatedRoute) {}
+  constructor(private eventService: EventService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
-    this.route.params.forEach((params: Params) => {
-      this.event = this.eventService.getEvent(+params['id']);
+    this.route.data.forEach(data => {
+      this.event = data['event'];
       this.addMode = false;
     });
   }
@@ -33,7 +43,7 @@ export class EventDetailsComponent implements OnInit {
     const nextId = Math.max.apply(null, this.event.sessions.map(s => s.id));
     session.id = nextId + 1;
     this.event.sessions.push(session);
-    this.eventService.updateEvent(this.event);
+    this.eventService.saveEvent(this.event).subscribe();
     this.addMode = false;
   }
 

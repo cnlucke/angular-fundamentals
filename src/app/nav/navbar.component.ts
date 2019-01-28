@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../user/auth.service';
-import {EventService, ISession} from "../events/shared";
+import {EventService, IEvent, ISession} from "../events/shared";
 
 @Component({
   selector: 'navbar',
@@ -15,10 +15,14 @@ import {EventService, ISession} from "../events/shared";
 export class NavbarComponent implements OnInit {
   searchTerm: string = '';
   foundSessions: ISession[];
+  events: IEvent[];
 
   constructor(public authService: AuthService, private eventService: EventService) { }
 
   ngOnInit() {
+    this.eventService.getEvents().subscribe(events => {
+      this.events = events.sort((a, b) => a.name.localeCompare(b.name));
+    })
   }
 
   searchSessions(searchTerm: any) {
