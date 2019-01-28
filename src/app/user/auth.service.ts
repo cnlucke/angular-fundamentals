@@ -14,7 +14,7 @@ export class AuthService {
   currentUser: IUser;
 
   loginUser(userName: string, password: string) {
-    let loginInfo = {username: 'johnpapa', password};
+    let loginInfo = {username: 'johnpapa', password}; //server won't update username, only first/lastName
     let options = {headers: new HttpHeaders({'ContentType': 'application/json'})};
     return this.http.post('/api/login', loginInfo, options)
       .pipe(tap(data => {
@@ -28,7 +28,6 @@ export class AuthService {
   updateCurrentUser(firstName: string, lastName: string) {
     this.currentUser.firstName = firstName;
     this.currentUser.lastName = lastName;
-    this.currentUser['userName'] = (firstName + lastName).toLocaleLowerCase();
 
     let options = {headers: new HttpHeaders({'ContentType': 'application/json'})};
     return this.http.put(`/api/users/${this.currentUser.id}`, this.currentUser, options);
